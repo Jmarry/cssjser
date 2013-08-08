@@ -1,0 +1,83 @@
+extends ../layout/admin
+block head
+    link(rel='stylesheet', href='/css/commen/wmd.css')
+    link(rel='stylesheet', href='/css/commen/prettify.css')
+block content
+    .container-fluid
+        .row-fluid
+            .span12
+                h3.page-title
+                    | #{title}
+                    small 记录点滴感悟~~~！
+                ul.breadcrumb
+                    li
+                        i.icon-home(style='margin:3px 4px 0 0;')
+                        a(href='/') 首页
+                        span.divider /
+                    li
+                        a(href='/admin/postlist/') 文章列表
+                        span.divider /
+                    li.active 发表文章
+        #page
+            .row-fluid
+                .span12
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-pencil
+                                |发表文章
+                        .widget-body
+                            form.form-horizontal(action=post.title?'/post/#{post.title}/edit/':'/post/',method='post')
+                                if(msg&&msg!='')
+                                    .alert.alert-error
+                                        button.close(data-dismiss='alert') ×
+                                        | #{msg}
+                                .control-group
+                                    .control-label
+                                        label(for='title') 标题
+                                    .controls
+                                        input#title.input-xxlarge(type='text',class='lf',name='title',value='#{post.title}',required)
+                                .control-group
+                                    .control-label
+                                        label(for='category') 类别
+                                    .controls
+                                        select#category(name='category')
+                                            - categorys.forEach(function(category){
+                                                if(!category.link)
+                                                    if(post.category&&(post.category.name==category.name))
+                                                        option(value='#{category._id}',selected)= category.name
+                                                    else
+                                                        option(value='#{category._id}')= category.name
+                                            - })
+                                .control-group
+                                    .control-label
+                                        label(for='wmd-input') 内容
+                                    .controls
+                                        .span8
+                                            #wmd-button-bar
+                                            textarea#wmd-input(name='body')= post.body
+                                .control-group
+                                    .control-label
+                                        label(for='tags') 标签
+                                    .controls
+                                        input#tags.input-xxlarge(type='text',class='mf',name='tags',placeholder='多个标签请用,号隔开',value='#{post.tags}',required)
+                                .control-group
+                                    .controls
+                                        input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                        if(post.user)
+                                            input(type='hidden', name='pid', value="#{post._id}")
+                                        input.btn.btn-info(type='button',value='MarkDown',id='MarkDown',style='margin-right:5px;')
+                                        input.btn.btn-primary(type='submit',value='Post')
+            .row-fluid
+                #wmd-preview.markdown-body
+block foot
+    script(type='text/javascript',src='/js/wmd/showdown.js')
+    script(type='text/javascript',src='/js/wmd/wmd.js')
+    script(type='text/javascript',src='/js/prettify.js')
+    script
+        (function($){
+            $('#MarkDown').on('click',function(e){
+                $('#wmd-preview').show().find('pre').addClass('prettyprint');
+                prettyPrint();
+            });
+        })(jQuery);

@@ -1,0 +1,45 @@
+extends ../layout/admin
+block content
+    .container-fluid
+        .row-fluid
+            .span12
+                h3.page-title
+                    | 媒体中心
+                    small 上传精彩瞬间~~~！
+                ul.breadcrumb
+                    li
+                        i.icon-home(style='margin:3px 4px 0 0;')
+                        a(href='/') 首页
+                        span.divider /
+                    li
+                        a(href='/admin/medias/') 媒体中心
+                        span.divider /
+                    li.active= title
+        #page
+            .row-fluid
+                .span12
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-pencil
+                                |上传图片
+                        .widget-body
+                            form.form-horizontal(action='/admin/medias/create',method='post',enctype='multipart/form-data')
+                                if(msg&&msg!='')
+                                    .alert.alert-error
+                                        button.close(data-dismiss='alert') ×
+                                        | #{msg}
+                                .control-group
+                                    .control-label
+                                        label(for='img') 图片地址
+                                    .controls
+                                        input#img(type='file',class='lf',name='img',required)
+                                .control-group
+                                    .control-label
+                                        label(for='meta') 备注信息
+                                    .controls
+                                        input#meta(type='text',class='lf',name='meta')
+                                .control-group
+                                    .controls
+                                        input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                        input.btn.btn-primary(type='submit',value='Post')

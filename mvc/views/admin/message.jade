@@ -1,0 +1,40 @@
+extends ../layout/admin
+block head
+    link(rel='stylesheet',href='/css/custom.css')
+block content
+    .container-fluid
+        .row-fluid
+            .span12
+                h3.page-title
+                    | #{title}
+                    small 我的网站我做主
+                ul.breadcrumb
+                    li
+                        i.icon-home(style='margin:3px 4px 0 0;')
+                        a(href='/') 首页
+                        span.divider /
+                    li.active 网站公告
+        #page
+            .row-fluid
+                .span12
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-pencil
+                                | 网站公告
+                        .widget-body
+                            form.form-horizontal(action='/admin/settings',method='post')
+                                if(msg&&msg!='')
+                                    .alert.alert-error
+                                        button.close(data-dismiss='alert') ×
+                                        .text
+                                            | #{msg}
+                                .control-group
+                                    .control-label
+                                        label(for='Message') 内容
+                                    .controls
+                                        input#Message.input-xxlarge(type='text',class='lf',name='message',required)
+                                .control-group
+                                    .controls
+                                        input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                        input.btn.btn-primary(type='submit',value='Post')

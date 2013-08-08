@@ -1,0 +1,46 @@
+doctype 5
+html
+    head
+        title 404 - 前端开发
+        style
+            *{margin: 0;padding: 0;}
+            body{background: #dad9d7;font-family: "microsoft yahei";}
+            .error-wrapper{
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 600px;
+                overflow: hidden;
+            }
+            .error-wrapper .error-body{
+                margin: 0 auto;
+                width: 500px;
+                line-height: 20px;
+            }
+            .error-wrapper .error-body h1{color: #555;text-align: center;font-family: arial;font-size: 40px;margin-top: 160px;}
+            .error-wrapper .error-body .c1{height: 170px;text-align: center;}
+            .error-wrapper .error-body .c1 .error-icon{margin-top: 5px;}
+            .error-wrapper .error-body h2{
+                text-align: center;
+                color: #555;
+                font-size: 18px;
+                font-weight: normal;
+                height: 35px;
+            }
+            .error-wrapper .error-body .c2{height: 35px;text-align: center;}
+            .error-wrapper .error-body .c2 a{display: inline-block;margin: 0 4px;font-size: 14px;height: 23px;color: #626262;padding-top: 1px;text-decoration: none;text-align: left;}
+            .error-wrapper .error-body .c3{height: 180px;text-align: center;color: #999;font-size: 12px;}
+    body
+        .error-wrapper
+            .error-body
+                h1 404
+                .c1
+                    img.error-icon(src='http://cssjser.qiniudn.com/718701b6-43d1-40cf-aaf6-540e510e1b2b.png',alt='您访问的页面不存在',width=178,height=166)
+                h2 哎呀…您访问的页面不存在
+                .c2
+                    a(href='#{url}',title='返回上一页') 返回上一页
+                    a(href='/',title='返回首页') 返回首页
+                .c3 您可能输入了错误的网址，或者该网页已删除或移动
+
+

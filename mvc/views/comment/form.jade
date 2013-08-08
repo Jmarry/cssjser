@@ -1,0 +1,39 @@
+.widget
+    .widget-title
+        h3
+            i.icon-reply
+            | 发表评论
+        .pull-right#clearReply
+            span.label.label-important 取消回复
+    .widget-body
+        #reply
+            .postbox
+                .avatar
+                    a(href='#')
+                        img(src='http://cssjser.qiniudn.com/23a31fd7-75ea-48d4-9584-ca5aa811aae6.png?imageView/2/w/48/h/48',width='48',height='48')
+                form(action='./comment',method='post')
+                    input(type='hidden', name='_csrf', value="#{csrf_token}")
+                    input(type='hidden',name='replyId',id='replyId')
+                    input(type='hidden',name='replyerId',id='replyEr')
+                    .textarea-wrapper
+                        .textarea
+                            textarea(name='body',required,placeholder='Leave a Message...')
+                        if(user)
+                            .post-actions
+                                .post-infos
+                                    |登录者：
+                                    span= user.name
+                                .temp-post
+                                    input.btn.submit(type='submit',value='Post')
+                    if(!user)
+                        .guster-sections
+                            section
+                                p.input-wrapper
+                                    input(type='text',placeholder='Name',name='name',maxlength=30)
+                                .guest-details
+                                    p.input-wrapper
+                                        input(type='email',placeholder='Email',name='email',required)
+                                    p.input-wrapper
+                                        input(type='text',placeholder="Your Blog's Url",name='link')
+                            .proceed
+                                input.btn.submit(type='submit',value='Post')

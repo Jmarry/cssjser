@@ -1,0 +1,21 @@
+{
+    "name": "BlogSoft",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node server.js",
+        "begin": "NODE_ENV=production forever start server.js"
+    },
+    "dependencies": {
+        "express": "3.2.6",
+        "jade": "*",
+        "less-middleware": "*",
+        "mongoose": "*",
+        "connect-mongo": "*",
+        "connect-flash": "*",
+        "crypto": "*",
+        "pagedown": "*",
+        "qiniu":"*",
+        "node-uuid":"*"
+    }
+}

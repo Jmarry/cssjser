@@ -1,0 +1,50 @@
+extends ../layout/admin
+block content
+    .container-fluid
+        .row-fluid
+            .span12
+                h3.page-title
+                    | 新建类别
+                    small 用来归归类干嘛干嘛的~~~！
+                ul.breadcrumb
+                    li
+                        i.icon-home(style='margin:3px 4px 0 0;')
+                        a(href='/') 首页
+                        span.divider /
+                    li
+                        a(href='/admin/category/list') 类别列表
+                        span.divider /
+                    li.active 新建类别
+        #page
+            .row-fluid
+                .span12
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-pencil
+                                | 文章列表
+                        .widget-body
+                            form.form-horizontal(action=category.name?'/admin/category/#{category._id}/':'/admin/category/create/',method='post')
+                                if(msg&&msg!='')
+                                    .alert.alert-error
+                                        button.close(data-dismiss='alert') ×
+                                        | #{msg}
+                                .control-group
+                                    .control-label
+                                        label(for='Name') 名称
+                                    .controls
+                                        input#Name(type='text', class='sf', name='name', placeholder='名称',value='#{category.name}')
+                                .control-group
+                                    .control-label
+                                        label(for='Link') 链接地址
+                                    .controls
+                                        input#Link(type='text', class='lf', name='link', placeholder='链接',value='#{category.link}')
+                                .control-group
+                                    .control-label
+                                        label 显示顺序
+                                    .controls
+                                        input#Index(type='text', name='index', placeholder='显示顺序',value='#{category.index}')
+                                .control-group
+                                    .controls
+                                        input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                        input.btn.btn-primary(type='submit', value='提交')

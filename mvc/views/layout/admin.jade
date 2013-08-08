@@ -1,0 +1,39 @@
+!!! 5
+html(xmlns='http://www.w3.org/1999/xhtml')
+    head
+        include ../includes/head
+        link(href='/css/custom.css',rel='stylesheet')
+    body
+        header#header.navbar.navbar-fixed-top.navbar-inverse
+            .navbar-inner
+                .container-fluid
+                    button.btn.btn-navbar(type='button',data-toggle='collapse',data-target='.nav-collapse')
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.brand(href='/',title='返回首页')
+                        img(src='http://cssjser.qiniudn.com/e5ad2e1a-39ee-4412-a3d5-35e71fa048c9.png',width=127,height=20,alt='logo')
+                    ul.nav.pull-right
+                        li.dropdown
+                            a.dropdown-toggle(href='#',data-toggle='dropdown')
+                                i.icon-user(style='font-size:20px;')
+                                b.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/user/')
+                                        i.icon-user
+                                        | #{user.name||user.email}
+                                li
+                                    a(href='/user/editPwd/')
+                                        i.icon-lock
+                                        | 修改密码
+                                li.divider
+                                li
+                                    a(href='/logout/')
+                                        i.icon-off
+                                        | 登出
+        #container.row-fluid
+            include ../includes/admin/header
+            #main
+                block content
+        include ../includes/foot

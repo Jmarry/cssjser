@@ -1,0 +1,67 @@
+extends ../layout/admin
+block head
+    link(rel='stylesheet',href='/css/jquery.fancybox.css')
+block content
+    .container-fluid
+        .row-fluid
+            .span12
+                h3.page-title
+                    | 媒体中心
+                    small 上传精彩瞬间~~~！
+                ul.breadcrumb
+                    li
+                        i.icon-home(style='margin:0 4px 0 0;')
+                        a(href='/') 首页
+                        span.divider /
+                    li.active 媒体中心
+        #page
+            .row-fluid
+                .span12
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-edit
+                                |上传图片
+                        .widget-body
+                            .clearfix.help-block
+                                .btn-group
+                                    a.btn.btn-success(title='上传图片',href='/admin/medias/create/') 上传图片
+                                        i.icon-plus.icon-white
+                            hr.clearfix
+                            .row-fluid
+                                .thumbnails
+                                    if(medias&&medias.length>0)
+                                        - medias.forEach(function(media,i){
+                                            .span2
+                                                .thumbnail
+                                                    .item
+                                                        a.fancybox-button(href='http://cssjser.qiniudn.com/#{media.link}',title='#{media.meta}',data-rel='fancybox-button')
+                                                            img(src='http://cssjser.qiniudn.com/#{media.link}?imageView/2/w/200/h/200',alt='#{media.meta}')
+                                                        form.form-mini(action='/admin/medias/#{media._id}/del/',method='post')
+                                                            input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                                            input.btn-close.icon-remove-sign(type='submit',value='删除')
+                                        - })
+                            include ../includes/admin/pager
+block foot
+    script(src='/js/jquery.fancybox.pack.js')
+    script
+        if($.fancybox){
+            if ($(".fancybox-button").size() > 0) {
+                $(".fancybox-button").fancybox({
+                    groupAttr: 'data-rel',
+                    prevEffect: 'none',
+                    nextEffect: 'none',
+                    closeBtn: true,
+                    helpers: {
+                        title: {
+                            type: 'inside'
+                        }
+                    }
+                });
+            }
+        }
+        $('form').on('submit',function(){
+            if(!confirm('确定删除么？')){
+                return false;
+            }
+        })

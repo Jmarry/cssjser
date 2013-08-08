@@ -1,0 +1,83 @@
+extends ../layout/admin
+block content
+    .container-fluid
+        .row-fluid
+            .span12
+                h3.page-title
+                    | 评论列表
+                    small 看看别人是怎么喷你的~~~！
+                ul.breadcrumb
+                    li
+                        i.icon-home(style='margin:3px 4px 0 0;')
+                        a(href='/') 首页
+                        span.divider /
+                    li.active 评论列表
+        #page
+            .row-fluid
+                .span12
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-edit
+                                |评论列表
+                        .widget-body
+                            table.table.table-hover
+                                thead
+                                    tr
+                                        th NO
+                                        th 作者
+                                        th 邮箱
+                                        th 回复文章
+                                        th 链接
+                                        th 时间
+                                        th 查看
+                                        th 删除
+                                tbody
+                                    - comments.forEach(function(comment,i){
+                                            tr
+                                                td= i
+                                                td= comment.name
+                                                td= comment.email
+                                                td
+                                                    a(href='/post/#{comment.post.title}/#reply_#{comment._id}/',title='#{comment.post.title}',target='_blank')= comment.post.title
+                                                td= comment.link
+                                                td #{comment.createAt}前
+                                                td
+                                                    a.btn.btn-warning(href='/post/#{comment.post.title}/#reply_#{comment._id}/',target='_blank') 查看
+                                                td
+                                                    form(action='/admin/comments/#{comment._id}/del/',method='post')
+                                                        input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                                        input.btn.btn-danger(type='submit',value='删除')
+                                            if(comment.replys&&comment.replys.length>0)
+                                                tr(class='sub')
+                                                    td 子评论：
+                                                    td(colspan='6')
+                                                        table.table.table-hover
+                                                            tr
+                                                                th 作者
+                                                                th 邮箱
+                                                                th 回复人
+                                                                th 链接
+                                                                th 时间
+                                                                th 操作
+                                                            - for reply in comment.replys
+                                                                tr
+                                                                    td= reply.name
+                                                                    td= reply.email
+                                                                    td= reply.replyer&&reply.replyer.name
+                                                                    td= reply.link
+                                                                    td #{reply.createAt}前
+                                                                    td
+                                                                        form(action='/admin/comments/#{comment._id}/del/',method='post')
+                                                                            input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                                                            input(type='hidden', name='replyId', value="#{reply._id}")
+                                                                            input.btn.btn-danger(type='submit',value='删除')
+                                    - })
+                            include ../includes/admin/pager
+block foot
+    script
+        $('form').on('submit',function(){
+            if(!confirm('确定删除么？')){
+                return false;
+            }
+        })

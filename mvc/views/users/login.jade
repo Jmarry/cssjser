@@ -1,0 +1,26 @@
+extends ../layout/login
+block content
+    #logo
+        a(href='/',title='CssJser')
+            img(src='http://cssjser.qiniudn.com/e5ad2e1a-39ee-4412-a3d5-35e71fa048c9.png',alt='logo')
+    #box
+        form(action='/login',method='post')
+            input(type='hidden', name='_csrf', value="#{csrf_token}")
+            if error!=''
+                .alert.alert-error
+                    button.close(data-dismiss='alert') ×
+                    | #{error}
+            .control-group
+                .controls
+                    .input-prepend
+                        span.add-on
+                          i.icon-envelope
+                        input(type='text',placeholder='Email',class='field',name="email",required)
+            .control-group
+                .controls
+                    .input-prepend
+                        span.add-on
+                            i.icon-lock
+                        input(type='password',placeholder='Password',class='field',name="password",required)
+            input.btn.btn-block.btn-inverse(type='submit',value='Submit',class='login')
+

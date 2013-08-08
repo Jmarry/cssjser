@@ -1,0 +1,23 @@
+!!! 5
+html(xmlns='http://www.w3.org/1999/xhtml')
+    head
+        include ../includes/head
+        link(href='/css/style.css',rel='stylesheet')
+    body
+        #layout
+            #wrapper
+                include ../includes/header
+                .container-fluid
+                    #content
+                        .row-fluid
+                            .container-fluid
+                                .row-fluid
+                                    .span12
+                                        block top
+                                .row-fluid
+                                    .span9
+                                        block content
+                                    .span3
+                                        include ../includes/slideBar
+                include ../includes/footer
+        include ../includes/foot

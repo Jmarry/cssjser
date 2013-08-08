@@ -1,0 +1,34 @@
+extends ../layout/admin
+block head
+    link(rel='stylesheet',href='/css/jquery.fancybox.css')
+block content
+    .container-fluid
+        .row-fluid
+            .span12
+                h3.page-title
+                    | 仪表盘
+                    small 纵观全局，数据清晰~~~~！
+        #page
+            .row-fluid
+                .span12
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-th-large
+                                |统计数据
+                        .widget-body
+            .row-fluid
+                .span6
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-comment
+                                |最新评论
+                        .widget-body
+                .span6
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-book
+                                |最新发表
+                        .widget-body

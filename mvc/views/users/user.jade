@@ -1,0 +1,51 @@
+extends ../layout/admin
+block content
+    .container-fluid
+        .row-fluid
+            .span12
+                h3.page-title
+                    | 用户设置
+                    small 改改个性~~~！
+                ul.breadcrumb
+                    li
+                        i.icon-home(style='margin:3px 4px 0 0;')
+                        a(href='/') 首页
+                        span.divider /
+                    li.active 用户设置
+        #page
+            .row-fluid
+                .span12
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-pencil
+                                |用户设置
+                        .widget-body
+                            .row-fluid
+                                .span12
+                                    .clearfix.help-block
+                                        .btn-group
+                                            a.btn.btn-info(title='修改密码',href='/user/editPwd') 修改密码
+                                                i.icon-edit.icon-white
+                            .row-fluid
+                                .span1
+                                    img(src='#{user.gravatar}&s=64',alt='#{user.name}')
+                                form.span11(action='/user',method='post')
+                                    if(error&&error!='')
+                                        .alert.alert-error
+                                            button.close(data-dismiss='alert') ×
+                                            | #{error}
+                                    .control-group
+                                        .control-label
+                                            label(for="username") 昵称
+                                        .controls
+                                            input(type='text',id="username",class='sf',name='name',value='#{user.name}',autocomplete='off',required)
+                                    .control-group
+                                        .control-label
+                                            label(for="usermail") 邮箱
+                                        .controls
+                                            input(type='text',id="usermail",class='sf',name='email',value='#{user.email}',autocomplete='off',required)
+                                    .control-group
+                                        .controls
+                                            input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                            input.btn.btn-primary(type='submit',value='提交')

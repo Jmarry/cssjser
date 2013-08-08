@@ -1,0 +1,72 @@
+nav#menu.nav-collapse.collapse
+    ul
+        if(current==1)
+            li.active
+                a(href='/admin/')
+                    i.icon-home.icon-white
+                    span 仪表盘
+        else
+            li
+                a(href='/admin/')
+                    i.icon-home.icon-white
+                    span 仪表盘
+        if(current==2)
+            li.active
+                a(href='/admin/postlist/')
+                    i.icon-list.icon-white
+                    span 文章
+        else
+            li
+                a(href='/admin/postlist/')
+                    i.icon-list.icon-white
+                    span 文章
+        if(current==3)
+            li.active
+                a(href='/admin/medias/')
+                    i.icon-film.icon-white
+                    span 媒体
+        else
+            li
+                a(href='/admin/medias')
+                    i.icon-film.icon-white
+                    span 媒体
+        if(current==4)
+            li.active
+                a(href='/admin/category/list')
+                    i.icon-tags.icon-white
+                    span 类别
+        else
+            li
+                a(href='/admin/category/list')
+                    i.icon-tags.icon-white
+                    span 类别
+        if(current==5)
+            li.active
+                a(href='/user/',title='用户')
+                    i.icon-user.icon-white
+                    span 用户
+        else
+            li
+                a(href='/user/',title='用户')
+                    i.icon-user.icon-white
+                    span 用户
+        if(current==6)
+            li.active
+                a(href='/admin/comments',title='评论')
+                    i.icon-comment.icon-white
+                    span 评论
+        else
+            li
+                a(href='/admin/comments',title='评论')
+                    i.icon-comment.icon-white
+                    span 评论
+        if(current==7)
+            li.active
+                a(href='/admin/settings')
+                    i.icon-cog.icon-white
+                    span 设置
+        else
+            li
+                a(href='/admin/settings')
+                    i.icon-cog.icon-white
+                    span 设置

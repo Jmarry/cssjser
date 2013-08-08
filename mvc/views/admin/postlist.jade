@@ -1,0 +1,66 @@
+extends ../layout/admin
+block content
+    .container-fluid
+        .row-fluid
+            .span12
+                h3.page-title
+                    | 文章列表
+                    small 记录点滴感悟~~~！
+                ul.breadcrumb
+                    li
+                        i.icon-home(style='margin:3px 4px 0 0;')
+                        a(href='/') 首页
+                        span.divider /
+                    li.active 文章列表
+        #page
+            .row-fluid
+                .span12
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-edit
+                                | 文章列表
+                        .widget-body
+                            .clearfix.help-block
+                                .btn-group
+                                    a.btn.btn-success(title='发表日志',href='/post/') 发表日志
+                                        i.icon-plus.icon-white
+                            table.table.table-hover.table-bordered.table-striped
+                                thead
+                                    tr
+                                        th #
+                                        th 标题
+                                        th 作者
+                                        th 标签
+                                        th 时间
+                                        th 浏览量
+                                        th 类别
+                                        th 编辑
+                                        th 删除
+                                tbody
+                                    - list.forEach(function(post,i){
+                                        tr
+                                            td= i
+                                            td
+                                                a(href='/post/#{post.title}/',target='_blank')= post.title
+                                            td= post.user.name
+                                            td= post.tags
+                                            td= post.byTime
+                                            td= post.renderNum
+                                            td
+                                                span.label.label-info #{post.category&&post.category.name}
+                                            td
+                                                a.btn.btn-mini.btn-warning(href='/post/#{post.title}/edit/') 编辑
+                                            td
+                                                form(action='/post/#{post.title}/del/',method='post')
+                                                    input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                                    input.btn.btn-mini.btn-danger(type='submit',value='删除')
+                                    - })
+        include ../includes/admin/pager
+block foot
+    script
+        $('form').on('submit',function(){
+            if(!confirm('确定删除么？')){
+                return false;
+            }
+        })

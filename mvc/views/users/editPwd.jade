@@ -1,0 +1,47 @@
+extends ../layout/admin
+block content
+    .container-fluid
+        .row-fluid
+            .span12
+                h3.page-title
+                    | 用户设置
+                    small 改改个性~~~！
+                ul.breadcrumb
+                    li
+                        i.icon-home(style='margin:3px 4px 0 0;')
+                        a(href='/') 首页
+                        span.divider /
+                    li
+                        a(href='/user/') 用户设置
+                        span.divider /
+                    li.active 修改密码
+        #page
+            .row-fluid
+                .span12
+                    .widget
+                        .widget-title
+                            h4
+                                i.icon-pencil
+                                |用户设置
+                        .widget-body
+                            .row-fluid
+                                .span12
+                                    form.form-horizontal(action='/user/editPwd',method='post')
+                                        if(error&&error!='')
+                                            .alert.alert-error
+                                                button.close(data-dismiss='alert') ×
+                                                | #{error}
+                                        .control-group
+                                            .control-label
+                                                label(for='Password') 新密码
+                                            .controls
+                                                input#Password(type='password',class='mf',name='password',autocomplete='off',required)
+                                        .control-group
+                                            .control-label
+                                                label(for='CheckPassword') 验证新密码
+                                            .controls
+                                                input#CheckPassword(type='password',class='mf',name='checkpassword',autocomplete='off',required)
+                                        .control-group
+                                            .controls
+                                                input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                                input.btn.btn-primary(type='submit',value='提交')

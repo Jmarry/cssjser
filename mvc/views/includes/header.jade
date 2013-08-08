@@ -1,0 +1,29 @@
+header#header.navbar.navbar-fixed-top
+    .navbar-inner
+        .container-fluid
+            a.btn.btn-navbar(data-toggle='collapse',data-target='.nav-collapse')
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+            a.brand(href='/',title='首页')
+                span.logo CssJser
+            ul.nav.pull-right
+                li
+                    a(href='https://github.com/Jmarry/',target='_blank')
+                        i.icon-github.icon-2x
+                li
+                    a(href='http://weibo.com/wyflogo?ref=http://cssjser.com',target='_blank')
+                        i.icon-weibo.icon-2x
+                li
+                    a(href='/login/')
+                        i.icon-user.icon-2x
+            ul.nav.nav-pills.nav-collapse.collapse
+                - categorys.forEach(function(item){
+                if item._id==categoryId
+                    p asd
+                li(class=item.name==categoryName?'active':'')
+                    a(href=item.link?'#{item.link}':'/category/#{item.name}/',title='#{item.name}')= item.name
+                - })
+                li
+                    form.form-search.pull-left(action='/',method='get')
+                        input.search(type='text',name='search',placeholder='Search',x-webkit-speech)

@@ -1,0 +1,60 @@
+extends ../layout/default
+block head
+    link(rel='stylesheet', href='/css/commen/prettify.css')
+block top
+    p
+    if(messages)
+        section.well.well-large
+            p
+                strong 公告：
+                | #{messages.message}
+
+block content
+        if list.length>0
+            - list.forEach(function(post){
+                article.is-post
+                    header
+                        h2
+                            a(href='/post/#{post.title}/')
+                                i.icon-th-large
+                                |#{post.title}
+                        p.tags
+                            if(post.category)
+                                | 类别：
+                                a(href=post.category.link?'#{post.category.link}':'/category/'+post.category.name+'/')
+                                    span.post-tag= post.category.name
+                            if(post.tags)
+                                |  标签：
+                                - var tags=post.tags.split(','),currentIndex=0;
+                                - tags.forEach(function(tag,i){
+                                a(href='/tags/#{tag}/',title='#{tag}')
+                                    span.post-category(class='post-category-theme'+currentIndex)= tag
+                                - currentIndex>2?currentIndex=0:currentIndex++;
+                                - })
+                    .info
+                        span.date
+                            span.mouth= post.getTime.m
+                            span.day= post.getTime.d
+                            span.year= post.getTime.y
+                        span.auth
+                            img.icon(src='#{post.user.gravatar}&s=32')
+                            span.name= post.user.name
+                        ul.stats
+                            li
+                                a(href='javascript:void(0);',title='阅读数')
+                                    i.icon-eye-open
+                                    span.nums= post.renderNum
+                            li
+                                a(href='/post/#{post.title}/#comment',title='查看评论')
+                                    i.icon-comment
+                                    span.nums= post.commentNum
+                    .markdown-body.content !{post.info}
+                    .detailbtn
+                        a(href='/post/#{post.title}/',title='点击查看 《#{post.title}》 的全文') 查看 《#{post.title}》 的全文
+                            i.icon-long-arrow-right.pull-right
+            - })
+        else
+            p.no-found 很抱歉！未找到您要的结果。
+        include ../includes/page
+block foot
+    script(type='text/javascript',src='/js/prettify.js')

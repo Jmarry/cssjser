@@ -1,0 +1,58 @@
+.widget
+    .widget-title
+        h3
+            i.icon-user
+            | 关于博主
+    .widget-body.widget-user
+        img.img-polaroid.pull-left(src='http://www.gravatar.com/avatar/02f285a2a85c843fdbd0a71bdf454c79?d=identicon&s=64',width=64,height=64,alt='博主头像')
+        ul
+            li 网名：Jmarry
+            li
+                |标签：
+                span.label.label-info F2E
+                |,
+                span.label.label-info NodeJs
+                |,
+                span.label.label-info LOL
+                |,
+                span.label.label-info 90后
+            li 爱好：旅游，电影，乒乓，敲代码。
+        div.websiteInfo
+            span.infos
+                span.num 11
+                |篇文章
+            span.infos
+                span.num 13
+                |条回复
+            span.infos
+                span.num 1111
+                |次访问量
+.widget
+    .widget-title
+        h3
+            i.icon-list
+            | 最新文章
+    .widget-body.widget-recent-posts
+        ul
+            if(recentposts&&recentposts.length>0)
+                - recentposts.forEach(function(item){
+                li
+                    a(href='/post/#{item.title}/',title='#{item.title}')= item.title
+                - })
+.widget
+    .widget-title
+        h3
+            i.icon-comments
+            | 最新评论
+    .widget-body.widget-recent-comments
+        ul
+            if(recentcomments&&recentcomments.length>0)
+                - recentcomments.forEach(function(comment){
+                li
+                    - var name=comment.name||'匿名';
+                    a(href='/post/#{comment.post.title}/#reply_#{comment._id}',title='#{name}')
+                        span.replyAvatar.pull-left
+                            img.img-rounded(src='#{comment.avatar}&s=42',width='42',height=42,alt='#{name}')
+                        span.replyer #{name}
+                        span.replyInfo 评论了：#{comment.post.title}
+                - })

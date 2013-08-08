@@ -1,0 +1,58 @@
+.replyBox(data-cmtId='#{comment._id}')
+    .media.reply(id='reply_#{comment._id}')
+        - var name=comment.name||comment.email;
+        if(comment.link!='')
+            a.pull-left(href='#{comment.link}',target='_blank',title='#{name}',rel='nofollow')
+                img.media-object(src='#{comment.avatar}&s=48',width='48',height='48',alt='#{name}')
+        else
+            img.pull-left.media-object(src='#{comment.avatar}&s=48',width='48',height='48',alt='#{name}')
+        .media-body
+            .media-heading.clearfix
+                .pull-left
+                    if(comment.link!='')
+                        span.name
+                            i.icon-user
+                            a(href='#{comment.link}',target='_blank',title='#{name}',rel='nofollow')= name
+                    else
+                        span.name
+                            i.icon-user
+                            |#{name}
+                    span.time
+                        i.icon-time
+                        |#{comment.createAt}前
+                .pull-right
+                    span.num ##{commentCount-((page-1)*10+i)}
+                    span.opts
+                        a.replybtn.label.label-info(href='#reply',title='回复[#{name}]的评论')
+                            i.icon-reply-all
+            |!{comment.body}
+            if(comment.replys.length>0)
+                - comment.replys.forEach(function(reply){
+                .media.reply.subreply(id='#reply_#{reply._id}')
+                    - var name=reply.name||reply.email;
+                    if(reply.link!='')
+                        a.pull-left(href='#{reply.link}',target='_blank',title='#{name}',rel='nofollow')
+                            img.media-object(src='#{reply.avatar}&s=48',width='48',height='48',alt='#{name}')
+                    else
+                        img.pull-left.media-object(src='#{reply.avatar}&s=48',width='48',height='48',alt='#{name}')
+                    .media-body
+                        .media-heading.clearfix
+                            .pull-left
+                                if(reply.link!='')
+                                    span.name
+                                        i.icon-user
+                                        a(href='#{reply.link}',target='_blank',title='#{name}',rel='nofollow')= name
+                                else
+                                    span.name
+                                        i.icon-user
+                                        |#{name}
+                                span.time
+                                    i.icon-time
+                                    |#{reply.createAt}前
+                            .pull-right
+                                span.opts
+                                    a.replybtn.label.label-info(href='#reply',title='回复[#{name}]的评论',data-rpyId='#{reply._id}')
+                                        i.icon-reply-all
+                        a.replyAt(href='#reply_#{reply.replyer.rid}',title='#{reply.replyer.name}') @#{reply.replyer.name}
+                        | !{reply.body}
+                - })
